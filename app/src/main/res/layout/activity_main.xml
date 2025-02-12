@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@android:color/white"
+    android:padding="16dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- 마이크 버튼 -->
+    <ImageButton
+        android:id="@+id/mic_button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/voice"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="녹음 시작 버튼"
+        android:scaleType="fitCenter"
+        android:padding="10dp"/>
+
+    <!-- 안내 문구 -->
+    <TextView
+        android:id="@+id/recording_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="마이크 버튼을 클릭하여 발음을 녹음하세요."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="16dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- 버튼 영역 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingBottom="16dp">
+
+        <Button
+            android:id="@+id/accuracy_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="정확도 측정"
+            android:background="#003366"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:layout_marginEnd="4dp"/>
+
+        <Button
+            android:id="@+id/record_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="기록"
+            android:background="#003366"
+            android:textColor="@android:color/white"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+</LinearLayout>
+
