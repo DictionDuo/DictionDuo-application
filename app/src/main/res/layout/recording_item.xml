@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@android:color/white"
+    android:layout_marginBottom="4dp">
+
+    <TextView
+        android:id="@+id/recording_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="녹음 시간"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"/>
+
+    <!-- 정확도 AI연동 시 수정 예정 -->
+    <TextView
+        android:id="@+id/accuracy_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="정확도"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="8dp"/>
+
+    <ImageButton
+        android:id="@+id/play_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_play"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+</LinearLayout>

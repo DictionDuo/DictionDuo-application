@@ -1,5 +1,6 @@
 package com.example.dd_app
 
+import android.content.Intent
 import android.Manifest
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
@@ -17,17 +18,17 @@ class MainActivity : AppCompatActivity() {
     private var isRecording = false
     private lateinit var outputFile: String
     private lateinit var micButton: ImageButton
+    private lateinit var recordButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         micButton = findViewById(R.id.mic_button)
+        recordButton = findViewById(R.id.record_button)
 
-        // 권한 요청
         checkPermissions()
 
-        // 버튼 클릭 이벤트
         micButton.setOnClickListener {
             if (isRecording) {
                 stopRecording()
@@ -35,11 +36,16 @@ class MainActivity : AppCompatActivity() {
                 startRecording()
             }
         }
+
+        recordButton.setOnClickListener {
+            val intent = Intent(this, RecordingsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun startRecording() {
         try {
-            val file = File(cacheDir, "recorded_audio.mp3")
+            val file = File(filesDir, "recording_${System.currentTimeMillis()}.mp3")
             outputFile = file.absolutePath
 
             mediaRecorder = MediaRecorder().apply {
@@ -52,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             isRecording = true
-            micButton.setImageResource(R.drawable.ic_stop) // 버튼 아이콘 변경
+            micButton.setImageResource(R.drawable.ic_stop)
             Toast.makeText(this, "녹음 시작", Toast.LENGTH_SHORT).show()
 
         } catch (e: Exception) {
@@ -70,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             mediaRecorder = null
             isRecording = false
 
-            micButton.setImageResource(R.drawable.voice) // 원래 아이콘으로 변경
+            micButton.setImageResource(R.drawable.voice)
             Toast.makeText(this, "녹음 저장됨: $outputFile", Toast.LENGTH_LONG).show()
 
         } catch (e: Exception) {
@@ -91,20 +97,6 @@ class MainActivity : AppCompatActivity() {
 
         if (missingPermissions.isNotEmpty()) {
             ActivityCompat.requestPermissions(this, missingPermissions.toTypedArray(), 101)
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 101) {
-            if (grantResults.any { it != PackageManager.PERMISSION_GRANTED }) {
-                Toast.makeText(this, "권한이 필요합니다", Toast.LENGTH_SHORT).show()
-                finish()
-            }
         }
     }
 }
