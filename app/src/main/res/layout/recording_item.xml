@@ -7,6 +7,18 @@
     android:background="@android:color/white"
     android:layout_marginBottom="4dp">
 
+    <EditText
+        android:id="@+id/recording_name"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="파일명"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:background="@android:color/transparent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:singleLine="true"/>
+
     <TextView
         android:id="@+id/recording_time"
         android:layout_width="wrap_content"
