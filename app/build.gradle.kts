@@ -36,12 +36,19 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    // Retrofit 추가
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+
+    // OkHttp 로깅 인터셉터 (네트워크 디버깅용, 선택사항)
+    implementation(libs.okhttp.logging)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
