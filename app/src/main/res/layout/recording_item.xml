@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginHorizontal="8dp"
+    android:background="@drawable/record_item_background"
+    android:elevation="2dp">
+
+    <!-- 파일명 입력 -->
+    <EditText
+        android:id="@+id/recording_name"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="파일명"
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:background="@drawable/rounded_edittext"
+        android:paddingHorizontal="12dp"
+        android:hint="파일명 입력"
+        android:drawableEnd="@drawable/ic_edit"
+        android:drawablePadding="8dp"
+        android:inputType="text"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/recording_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="녹음 시간"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:layout_marginTop="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="8dp">
+
+        <!-- 재생 버튼 -->
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp">
+
+            <ImageButton
+                android:id="@+id/play_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="재생"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_play"
+                app:tint="#555555" />
+        </FrameLayout>
+
+        <!-- 삭제 버튼 -->
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp">
+
+            <ImageButton
+                android:id="@+id/delete_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="삭제"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_delete"
+                app:tint="#D32F2F" />
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>
