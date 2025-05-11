@@ -48,4 +48,8 @@ dependencies {
 
     implementation ("com.amazonaws:aws-android-sdk-s3:2.79.0")
 
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("org.json:json:20231013")
+
+
 }

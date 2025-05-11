@@ -21,6 +21,10 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import okhttp3.*
+import org.json.JSONObject
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class PronunciationActivity : AppCompatActivity() {
 
@@ -127,8 +131,8 @@ class PronunciationActivity : AppCompatActivity() {
 
             // UI 업데이트
             isRecording = false
-            micButton.setImageResource(R.drawable.ic_voice)
-            recordingInstruction.text = "마이크 버튼을 클릭하여 발음을 녹음하세요."
+            micButton.setImageResource(R.drawable.ic_loading)
+            recordingInstruction.text = "발음 분석중..."
 
             uploadFileToS3()
 
@@ -141,8 +145,8 @@ class PronunciationActivity : AppCompatActivity() {
     // S3에 녹음 파일 업로드
     private fun uploadFileToS3() {
         try {
-            // val awsAccessKey =
-            // val awsSecretKey =
+            // val awsAccessKey = ""
+            // val awsSecretKey = ""
 
             val credentials = BasicAWSCredentials(awsAccessKey, awsSecretKey)
             val s3Client = AmazonS3Client(credentials)
@@ -164,6 +168,7 @@ class PronunciationActivity : AppCompatActivity() {
                     if (state == TransferState.COMPLETED) {
                         Log.d("AWS", "업로드 완료: $key")
                         Toast.makeText(applicationContext, "업로드 완료", Toast.LENGTH_SHORT).show()
+                        callLambdaAPI(key)
                     } else if (state == TransferState.FAILED) {
                         Log.e("AWS", "업로드 실패")
                         Toast.makeText(applicationContext, "업로드 실패", Toast.LENGTH_SHORT).show()
@@ -186,4 +191,41 @@ class PronunciationActivity : AppCompatActivity() {
         }
     }
 
+    //Lambda 호출 함수
+    private fun callLambdaAPI(fileKey: String) {
+        val json = JSONObject().apply {
+            put("file_key", fileKey)
+        }
+
+        val requestBody = json.toString().toRequestBody("application/json".toMediaType())
+        val request = Request.Builder()
+            .url("https://n7brxu4cra.execute-api.ap-northeast-2.amazonaws.com/predictPronunciation")
+            .post(requestBody)
+            .build()
+
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    Toast.makeText(
+                        applicationContext,
+                        "Lambda 호출 실패: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseText = response.body?.string() ?: "응답 없음"
+
+                val jsonResult = JSONObject(responseText)
+                val resultText = jsonResult.getString("result")
+                runOnUiThread {
+                    micButton.setImageResource(R.drawable.ic_result)
+                    recordingInstruction.text = "결과: $resultText"
+                }
+            }
+        })
+    }
 }
+
