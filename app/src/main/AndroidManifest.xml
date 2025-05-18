@@ -21,7 +21,7 @@
 
         <!-- 기본 Activity -->
         <activity
-            android:name=".PronunciationActivity"
+            android:name=".ui.PronunciationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
