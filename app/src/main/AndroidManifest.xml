@@ -21,7 +21,7 @@
 
         <!-- 기본 Activity -->
         <activity
-            android:name=".PronunciationActivity"
+            android:name=".ui.PronunciationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
         </activity>
 
         <!-- 새로 추가된 RecordingActivity -->
-        <activity android:name=".RecordingActivity" android:exported="true" />
+        <activity android:name=".ui.RecordingActivity" android:exported="true" />
 
     </application>
 
