@@ -15,6 +15,7 @@ class S3Uploader(private val context: Context) {
         try {
             // val awsAccessKey = ""
             // val awsSecretKey = ""
+
             val credentials = BasicAWSCredentials(awsAccessKey, awsSecretKey)
             val s3Client = AmazonS3Client(credentials)
             s3Client.setRegion(com.amazonaws.regions.Region.getRegion(Regions.AP_NORTHEAST_2))

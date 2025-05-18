@@ -7,9 +7,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidlab2.R
-import com.example.androidlab2.RecordingActivity
 import com.example.androidlab2.network.LambdaApiClient
-import com.example.androidlab2.recorder.AudioRecorder
+import com.example.androidlab2.audio.AudioRecorder
 import com.example.androidlab2.s3.S3Uploader
 import com.example.androidlab2.util.PermissionUtils
 import android.content.Intent

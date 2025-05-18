@@ -1,4 +1,4 @@
-package com.example.androidlab2.recorder
+package com.example.androidlab2.audio
 
 import android.content.Context
 import android.media.MediaRecorder

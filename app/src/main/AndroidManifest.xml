@@ -30,7 +30,7 @@
         </activity>
 
         <!-- 새로 추가된 RecordingActivity -->
-        <activity android:name=".RecordingActivity" android:exported="true" />
+        <activity android:name=".ui.RecordingActivity" android:exported="true" />
 
     </application>
 
