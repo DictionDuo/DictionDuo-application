@@ -16,7 +16,7 @@ object LambdaApiClient {
 
         val requestBody = json.toString().toRequestBody("application/json".toMediaType())
         val request = Request.Builder()
-            .url("https://[].execute-api.ap-northeast-2.amazonaws.com/predictPronunciation")
+            .url("")
             .post(requestBody)
             .build()
 

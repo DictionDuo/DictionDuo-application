@@ -29,6 +29,16 @@ class RecordingAdapter(
         holder.recordingName.text = recording.name
         holder.recordingTime.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date(recording.date))
 
+        holder.resultView.apply {
+            text = if (!recording.result.isNullOrBlank()) {
+                "결과: ${recording.result}"
+            } else {
+                "결과 없음"
+            }
+            visibility = View.VISIBLE
+        }
+
+
         holder.playButton.setOnClickListener { onPlay(recording.file) }
         holder.recordingName.setOnClickListener { onRename(position) }
         holder.deleteButton.setOnClickListener { onDelete(position) }
@@ -39,6 +49,7 @@ class RecordingAdapter(
     inner class RecordingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val recordingName: TextView = itemView.findViewById(R.id.recording_name)
         val recordingTime: TextView = itemView.findViewById(R.id.recording_time)
+        val resultView: TextView = itemView.findViewById(R.id.recording_result)
         val playButton: ImageButton = itemView.findViewById(R.id.play_button)
         val deleteButton: ImageButton = itemView.findViewById(R.id.delete_button)
     }
