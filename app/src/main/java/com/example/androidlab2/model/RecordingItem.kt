@@ -5,5 +5,6 @@ import java.io.File
 data class RecordingItem (
     val name: String,
     val date: Long,
-    val file: File
+    val file: File,
+    val result: String? = null
 )

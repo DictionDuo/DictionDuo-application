@@ -1,5 +1,6 @@
 package com.example.androidlab2.ui
 
+import com.example.androidlab2.ui.PronunciationActivity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -15,8 +16,18 @@ import com.example.androidlab2.ui.adapter.RecordingAdapter
 import com.example.androidlab2.util.RecordingFileManager
 import com.example.androidlab2.util.RecordingSorter
 import java.io.File
+import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.androidlab2.db.RecordViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class RecordingActivity : AppCompatActivity() {
+
+    private val viewModel: RecordViewModel by viewModels()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: RecordingAdapter
@@ -73,12 +84,31 @@ class RecordingActivity : AppCompatActivity() {
             startActivity(Intent(this, PronunciationActivity::class.java))
         }
 
-        loadRecordingFiles()
+        observeRecords()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         audioPlayer.release()
+    }
+
+    private fun observeRecords() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.records.collect { list ->
+                    recordings.clear()
+                    recordings.addAll(list.map {
+                        RecordingItem(
+                            name = it.title,
+                            date = it.time.toLongOrNull() ?: 0L,
+                            file = File(it.filePath),
+                            result = it.testResult
+                        )
+                    })
+                    adapter.notifyDataSetChanged()
+                }
+            }
+        }
     }
 
     private fun sortByTime() {
@@ -88,13 +118,6 @@ class RecordingActivity : AppCompatActivity() {
 
     private fun sortByName() {
         RecordingSorter.sortByName(recordings, isAscending)
-        adapter.notifyDataSetChanged()
-    }
-
-    private fun loadRecordingFiles() {
-        recordings.clear()
-        val dir = getExternalFilesDir(null)?.resolve("Recordings") ?: return
-        recordings.addAll(RecordingFileManager.loadRecordings(dir))
         adapter.notifyDataSetChanged()
     }
 

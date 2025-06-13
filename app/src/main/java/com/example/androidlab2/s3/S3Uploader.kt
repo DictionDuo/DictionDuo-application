@@ -14,7 +14,7 @@ class S3Uploader(private val context: Context) {
     fun uploadFile(file: File, onComplete: (String) -> Unit, onError: (Exception) -> Unit) {
         try {
             // val awsAccessKey = ""
-            // val awsSecretKey = ""
+           // val awsSecretKey = ""
 
             val credentials = BasicAWSCredentials(awsAccessKey, awsSecretKey)
             val s3Client = AmazonS3Client(credentials)
